@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import mirrorMediaHttp from "@/api/mirror-media-http";
+import convertCSV2JSON from "@/utils/csv2json";
 
 export const useCandidateStore = defineStore("candidate", {
   state: () => ({
@@ -11,7 +12,11 @@ export const useCandidateStore = defineStore("candidate", {
       const res = await mirrorMediaHttp.get(
         "/politicalcontribution/master/legislators/2016/A05_basic_all.csv"
       );
-      this.allPoliticalContributionsIncome = res;
+      const options = {
+        parseNumbers: false,
+        separator: ",",
+      };
+      this.allPoliticalContributionsIncome = convertCSV2JSON(res, options);
     },
   },
 });
