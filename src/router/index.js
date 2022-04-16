@@ -19,7 +19,10 @@ const router = createRouter({
       name: "PoliticalContribution",
       component: () => import("../views/PoliticalContribution.vue"),
       beforeEnter: async () => {
-        await candidateStore.fetchAllPoliticalContributionsIncome();
+        await Promise.all([
+          candidateStore.fetchAllPoliticalContributionsIncome(),
+          candidateStore.fetchAllForProfitDonationsIncome(),
+        ]);
       },
     },
   ],

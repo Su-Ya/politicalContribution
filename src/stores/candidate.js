@@ -6,6 +6,7 @@ export const useCandidateStore = defineStore("candidate", {
   state: () => ({
     // 所有候選人的政治獻金總表
     allPoliticalContributionsIncome: null,
+    allForProfitDonationsIncome: null,
   }),
   actions: {
     async fetchAllPoliticalContributionsIncome() {
@@ -17,6 +18,16 @@ export const useCandidateStore = defineStore("candidate", {
         separator: ",",
       };
       this.allPoliticalContributionsIncome = convertCSV2JSON(res, options);
+    },
+    async fetchAllForProfitDonationsIncome() {
+      const res = await mirrorMediaHttp.get(
+        "/politicalcontribution/master/legislators/2016/A02_company_all_public.csv"
+      );
+      const options = {
+        parseNumbers: false,
+        separator: ",",
+      };
+      this.allForProfitDonationsIncome = convertCSV2JSON(res, options);
     },
   },
   getters: {
@@ -47,6 +58,14 @@ export const useCandidateStore = defineStore("candidate", {
       return this.districtIds.map((item) =>
         this.searchPoliticalContributions(item)
       );
+    },
+    getACandidateForProfitDonationsIncome() {
+      return ({ candidate = "", politicalParty = "" }) => {
+        return this.allForProfitDonationsIncome.filter(
+          (item) =>
+            item.候選人 === candidate && item.推薦政黨 === politicalParty
+        );
+      };
     },
   },
 });
