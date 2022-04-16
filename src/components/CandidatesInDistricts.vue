@@ -46,6 +46,12 @@ function selectedCandidate(candidate) {
   selectedCandidates.value = [...selectedCandidates.value, candidate];
   emits("updateSelected", selectedCandidates.value);
 }
+
+function formatDistrict(name) {
+  const idx = name.indexOf("第");
+  const newName = idx > 0 ? name.slice(0, idx) : name;
+  return newName;
+}
 </script>
 
 <template>
@@ -55,7 +61,7 @@ function selectedCandidate(candidate) {
       v-for="(district, index) in props.candidatesInDistricts"
       :key="index"
     >
-      <h3 class="name">{{ district[0].地區 }}</h3>
+      <h3 class="name">{{ formatDistrict(district[0].地區) }}</h3>
       <div class="candidate">
         <span
           class="button name"
