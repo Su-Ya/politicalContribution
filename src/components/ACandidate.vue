@@ -4,9 +4,10 @@ export default {
 };
 </script>
 <script setup>
-import { ref, shallowRef } from "vue";
+import { ref, shallowRef, computed } from "vue";
 import CandidatesInDistricts from "@/components/CandidatesInDistricts.vue";
 import PCChart from "@/components/PCChart.vue";
+import { useCandidateStore } from "@/stores/candidate";
 
 const props = defineProps({
   candidatesInDistricts: {
@@ -19,6 +20,7 @@ let selectedCandidate = ref({});
 function updateSelected(value) {
   selectedCandidate.value = value[0];
   updatePieChart();
+  updateLineChart();
 }
 
 function deleteComma(strPrice) {
@@ -65,6 +67,69 @@ function updatePieChart() {
   ];
   pieChart.value.update();
 }
+const initLineChartConfig = shallowRef({
+  type: "line",
+  data: {
+    labels: [],
+    datasets: [
+      {
+        label: "捐贈公司",
+        borderColor: "rgba(255, 99, 132, 1)",
+        backgroundColor: "rgba(255, 99, 132, 0.2)",
+        data: [],
+      },
+    ],
+  },
+  options: {
+    plugins: {
+      title: {
+        display: true,
+        text: "捐贈公司和金額",
+      },
+      labels: [
+        {
+          render: "value",
+          fontSize: 10,
+        },
+      ],
+    },
+  },
+});
+let lineChart = shallowRef();
+function updateLineChart() {
+  lineChart.value.data.labels = [...contributor.value.companies];
+  lineChart.value.data.datasets = [
+    {
+      ...lineChart.value.data.datasets[0],
+      data: [...contributor.value.prices],
+    },
+  ];
+  lineChart.value.update();
+}
+const candidateStore = useCandidateStore();
+const candidate = computed(() => {
+  if (!selectedCandidate.value) return {};
+  return candidateStore.getACandidateForProfitDonationsIncome({
+    candidate: selectedCandidate.value.姓名,
+    politicalParty: selectedCandidate.value.推薦政黨,
+  });
+});
+const contributor = computed(() => {
+  if (candidate.value.length > 0) {
+    const companies = candidate.value.map((item) => item["捐贈者／支出對象"]);
+    const prices = candidate.value.map((item) =>
+      Number(deleteComma(item["收入金額"]))
+    );
+    console.log(companies);
+    console.log(prices);
+    return {
+      companies,
+      prices,
+    };
+  } else {
+    return {};
+  }
+});
 
 function isElected(mark) {
   switch (mark) {
@@ -79,7 +144,7 @@ function isElected(mark) {
 
 <template>
   <section class="a-candidate-container">
-    <h2>請選擇ㄧ位檢視</h2>
+    <h2>請選擇ㄧ位來檢視</h2>
     <CandidatesInDistricts
       modal="single"
       :candidatesInDistricts="props.candidatesInDistricts"
@@ -112,6 +177,11 @@ function isElected(mark) {
           id="pieChart"
           :config="initPieChartConfig"
           @updateChart="pieChart = $event"
+        ></PCChart>
+        <PCChart
+          id="lineChart"
+          :config="initLineChartConfig"
+          @updateChart="lineChart = $event"
         ></PCChart>
       </div>
     </section>
