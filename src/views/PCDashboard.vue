@@ -1,6 +1,6 @@
 <script>
 export default {
-  name: "Dashboard",
+  name: "PCDashboard",
 };
 </script>
 

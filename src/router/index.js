@@ -10,14 +10,14 @@ const router = createRouter({
       path: "/",
       name: "home",
       redirect: () => {
-        return { name: "Dashboard" };
+        return { name: "PCDashboard" };
       },
       component: () => import("../views/Home.vue"),
     },
     {
       path: "/dashboard",
-      name: "Dashboard",
-      component: () => import("../views/Dashboard.vue"),
+      name: "PCDashboard",
+      component: () => import("../views/PCDashboard.vue"),
       beforeEnter: async () => {
         await Promise.all([
           candidateStore.fetchAllPoliticalContributionsIncome(),
