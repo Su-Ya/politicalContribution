@@ -4,10 +4,9 @@ export default {
 };
 </script>
 <script setup>
-import { Chart, registerables } from "chart.js";
-import ChartDataLabels from "chartjs-plugin-datalabels";
-import { ref, onMounted, shallowRef } from "vue";
+import { ref, shallowRef } from "vue";
 import CandidatesInDistricts from "@/components/CandidatesInDistricts.vue";
+import PCChart from "@/components/PCChart.vue";
 
 const props = defineProps({
   candidatesInDistricts: {
@@ -16,42 +15,33 @@ const props = defineProps({
   },
 });
 
-onMounted(() => {
-  createPieChart();
-});
-Chart.register(...registerables);
-Chart.register(ChartDataLabels);
-const pieCtx = shallowRef();
 let pieChart = shallowRef();
-function createPieChart() {
-  const initPieChartData = shallowRef({
-    type: "pie",
-    data: {
-      labels: [],
-      datasets: [
+const initPieChartConfig = shallowRef({
+  type: "pie",
+  data: {
+    labels: [],
+    datasets: [
+      {
+        data: [],
+      },
+    ],
+  },
+  options: {
+    plugins: {
+      title: {
+        display: true,
+        text: "總收入和總支出",
+      },
+      labels: [
         {
-          data: [],
+          render: "value",
+          fontSize: 10,
         },
       ],
     },
-    options: {
-      plugins: {
-        title: {
-          display: true,
-          text: "總收入和總支出",
-        },
-        labels: [
-          {
-            render: "value",
-            fontSize: 10,
-          },
-        ],
-      },
-    },
-  });
-  pieCtx.value = document.getElementById("pieChart ");
-  pieChart.value = new Chart(pieCtx.value, initPieChartData.value);
-}
+    maintainAspectRatio: false,
+  },
+});
 let selectedCandidate = ref({});
 function updatePieChart(value) {
   selectedCandidate.value = value[0];
@@ -115,9 +105,11 @@ function isElected(mark) {
       </div>
       <div>
         <h3>該候選人的營利事業收支細項</h3>
-        <div style="max-width: 500px">
-          <canvas id="pieChart " height="400"></canvas>
-        </div>
+        <PCChart
+          id="pieChart"
+          :config="initPieChartConfig"
+          @updateChart="pieChart = $event"
+        ></PCChart>
       </div>
     </section>
   </section>
