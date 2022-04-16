@@ -51,6 +51,7 @@ let modal = ref();
 .container {
   max-width: 900px;
   margin: auto;
+  padding: 0 0.5rem;
   .modals-title {
     margin-bottom: 0;
   }

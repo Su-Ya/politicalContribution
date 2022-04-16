@@ -122,9 +122,6 @@ function formatComma(price) {
 </template>
 
 <style lang="scss" scoped>
-.pk-container {
-  padding: 0 0.5rem;
-}
 .selected-candidates {
   margin-top: 3em;
   .field {
