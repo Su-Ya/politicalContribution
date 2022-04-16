@@ -37,7 +37,7 @@ function formatComma(price) {
     <h2>請選擇兩位來 PK</h2>
     <CandidatesInDistricts
       :candidatesInDistricts="props.candidatesInDistricts"
-      @updateSelectedCandidates="selectedCandidates = $event"
+      @updateSelected="selectedCandidates = $event"
     ></CandidatesInDistricts>
     <section class="selected-candidates">
       <div class="field">

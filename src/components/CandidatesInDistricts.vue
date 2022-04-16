@@ -13,7 +13,7 @@ const props = defineProps({
 });
 
 const emits = defineEmits({
-  updateSelectedCandidates: () => true,
+  updateSelected: () => true,
 });
 let selectedCandidates = ref([]);
 const selectedCandidateNames = computed(() =>
@@ -23,7 +23,7 @@ function selectedCandidate(candidate) {
   const maxSelected = 2;
   if (selectedCandidates.value.length === maxSelected) {
     selectedCandidates.value = [candidate];
-    emits("updateSelectedCandidates", selectedCandidates.value);
+    emits("updateSelected", selectedCandidates.value);
     return;
   }
   if (
@@ -32,7 +32,7 @@ function selectedCandidate(candidate) {
   )
     return;
   selectedCandidates.value = [...selectedCandidates.value, candidate];
-  emits("updateSelectedCandidates", selectedCandidates.value);
+  emits("updateSelected", selectedCandidates.value);
 }
 </script>
 
