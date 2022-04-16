@@ -84,7 +84,7 @@ const initLineChartConfig = shallowRef({
     plugins: {
       title: {
         display: true,
-        text: "捐贈公司和金額",
+        text: "捐贈公司和營利事業收入",
       },
       labels: [
         {
@@ -172,7 +172,7 @@ function isElected(mark) {
         </div>
       </div>
       <div>
-        <h3>該候選人的營利事業收支細項</h3>
+        <h3>細項</h3>
         <PCChart
           id="pieChart"
           :config="initPieChartConfig"
