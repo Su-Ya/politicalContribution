@@ -1,3 +1,5 @@
+// source: https://github.com/martindrapeau/csvjson-app/blob/master/js/csvjson/csv2json.js
+
 String.prototype.trim = function (characters) {
   characters = defaultToWhiteSpace(characters);
   return this.replace(new RegExp(`^${characters}+|${characters}+$`, "g"), "");
