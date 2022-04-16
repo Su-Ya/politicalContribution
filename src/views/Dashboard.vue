@@ -1,6 +1,6 @@
 <script>
 export default {
-  name: "PoliticalContribution",
+  name: "Dashboard",
 };
 </script>
 
