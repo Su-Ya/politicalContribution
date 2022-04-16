@@ -58,7 +58,7 @@ function selectedCandidate(candidate) {
       <h3 class="name">{{ district[0].地區 }}</h3>
       <div class="candidate">
         <span
-          class="name"
+          class="button name"
           :class="{ active: selectedCandidateNames.includes(candidate.姓名) }"
           v-for="(candidate, index) in district"
           :key="index"
@@ -73,7 +73,7 @@ function selectedCandidate(candidate) {
 
 <style lang="scss" scoped>
 .districts {
-  height: 11.9em;
+  height: 12.2em;
   overflow-y: auto;
 }
 .district {
@@ -91,12 +91,6 @@ function selectedCandidate(candidate) {
     align-items: center;
     .name {
       flex: 0 0 auto;
-      padding: 0.4em 0.6em;
-      margin: 0.4em;
-    }
-    .name.active {
-      outline: 1px solid red;
-      border-radius: 8px;
     }
   }
 }
