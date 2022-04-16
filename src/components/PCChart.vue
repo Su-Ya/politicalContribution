@@ -31,9 +31,14 @@ onMounted(() => {
 </script>
 
 <template>
-  <div style="max-width: 500px">
+  <div class="chart-container">
     <canvas :id="props.id" height="400"></canvas>
   </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.chart-container {
+  max-width: 500px;
+  margin-bottom: 3em;
+}
+</style>
