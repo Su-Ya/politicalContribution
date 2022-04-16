@@ -10,6 +10,9 @@ const props = defineProps({
     type: Array,
     default: () => [],
   },
+  modal: {
+    type: String,
+  },
 });
 
 const emits = defineEmits({
@@ -20,7 +23,16 @@ const selectedCandidateNames = computed(() =>
   selectedCandidates.value.map((item) => item.姓名)
 );
 function selectedCandidate(candidate) {
-  const maxSelected = 2;
+  let maxSelected;
+  switch (props.modal) {
+    case "pk":
+      maxSelected = 2;
+      break;
+    case "single":
+    default:
+      maxSelected = 1;
+      break;
+  }
   if (selectedCandidates.value.length === maxSelected) {
     selectedCandidates.value = [candidate];
     emits("updateSelected", selectedCandidates.value);
