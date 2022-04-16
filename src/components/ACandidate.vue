@@ -15,6 +15,16 @@ const props = defineProps({
   },
 });
 
+let selectedCandidate = ref({});
+function updateSelected(value) {
+  selectedCandidate.value = value[0];
+  updatePieChart();
+}
+
+function deleteComma(strPrice) {
+  if (strPrice === undefined || strPrice === null) return "";
+  return strPrice.split(",").join("");
+}
 let pieChart = shallowRef();
 const initPieChartConfig = shallowRef({
   type: "pie",
@@ -42,10 +52,7 @@ const initPieChartConfig = shallowRef({
     maintainAspectRatio: false,
   },
 });
-let selectedCandidate = ref({});
-function updatePieChart(value) {
-  selectedCandidate.value = value[0];
-
+function updatePieChart() {
   pieChart.value.data.labels = ["總收入", "總支出"];
   pieChart.value.data.datasets = [
     {
@@ -57,10 +64,6 @@ function updatePieChart(value) {
     },
   ];
   pieChart.value.update();
-}
-function deleteComma(strPrice) {
-  if (strPrice === undefined || strPrice === null) return "";
-  return strPrice.split(",").join("");
 }
 
 function isElected(mark) {
@@ -80,7 +83,7 @@ function isElected(mark) {
     <CandidatesInDistricts
       modal="single"
       :candidatesInDistricts="props.candidatesInDistricts"
-      @updateSelected="updatePieChart"
+      @updateSelected="updateSelected"
     ></CandidatesInDistricts>
     <section>
       <div class="selected-candidate-info">
