@@ -84,6 +84,12 @@ function formatDistrict(name) {
 }
 .district {
   > .name {
+    position: sticky;
+    top: 0;
+  }
+}
+.district {
+  > .name {
     margin: 0;
     width: fit-content;
     background-color: #666;
