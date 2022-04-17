@@ -5,7 +5,7 @@ import Vue from "@vitejs/plugin-vue";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "/political-contribution/",
+  base: "/politicalContribution/",
   plugins: [Vue()],
   resolve: {
     alias: {
