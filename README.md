@@ -1,7 +1,7 @@
 # political-contribution
 
 ## demo
-[demo]( https://su-ya.github.io/political-contribution/)
+[demo]( https://su-ya.github.io/politicalContribution/)
 ## Project Setup
 
 ```sh
