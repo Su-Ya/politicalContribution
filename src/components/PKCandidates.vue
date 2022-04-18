@@ -61,7 +61,7 @@ const initBarChartConfig = computed(() => {
   <section class="pk-container">
     <h2>請選擇兩位來 PK</h2>
     <CandidatesInDistricts
-      modal="pk"
+      :modal="Utils.analyzeModals.pk"
       :candidatesInDistricts="props.candidatesInDistricts"
       @updateSelected="selectedCandidates = $event"
     ></CandidatesInDistricts>

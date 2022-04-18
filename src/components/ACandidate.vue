@@ -133,7 +133,7 @@ const contributor = computed(() => {
   <section class="a-candidate-container">
     <h2>請選擇ㄧ位來檢視</h2>
     <CandidatesInDistricts
-      modal="single"
+      :modal="Utils.analyzeModals.single"
       :candidatesInDistricts="props.candidatesInDistricts"
       @updateSelected="updateSelected"
     ></CandidatesInDistricts>
