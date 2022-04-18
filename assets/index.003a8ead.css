@@ -1,0 +1,1 @@
+*,*:before,*:after{box-sizing:border-box}body{margin:0;font-family:Noto Sans TC,PingFang SC,Microsoft YaHei,Roboto,-apple-system,Helvetica Neue,Helvetica,Arial,sans-serif}.button{font-size:1rem;line-height:1;padding:.4em .6em;margin:.4em;border-radius:8px;cursor:pointer}.outline-default{background-color:#fff;border:1px solid #666}.button.active{border:1px solid red}
