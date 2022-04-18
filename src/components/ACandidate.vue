@@ -70,7 +70,7 @@ const initLineChartConfig = shallowRef({
     labels: [],
     datasets: [
       {
-        label: "捐贈公司",
+        label: "捐贈企業",
         borderColor: "rgba(255, 99, 132, 1)",
         backgroundColor: "rgba(255, 99, 132, 0.2)",
         data: [],
@@ -81,7 +81,7 @@ const initLineChartConfig = shallowRef({
     plugins: {
       title: {
         display: true,
-        text: "捐贈公司和營利事業收入",
+        text: "捐贈企業和金額",
       },
       labels: [
         {
