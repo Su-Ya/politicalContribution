@@ -8,7 +8,7 @@ const Utils = {
         return false;
     }
   },
-  formatComma: (price) => {
+  addComma: (price) => {
     if (price === undefined || price === null) return "";
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   },

@@ -108,47 +108,47 @@ const initBarChartConfig = computed(() => {
         <div>{{ selectedCandidates[1]?.捐贈企業數 }}</div>
       </div>
       <div class="field">
-        <div>{{ Utils.formatComma(selectedCandidates[0]?.總收入) }}</div>
+        <div>{{ Utils.addComma(selectedCandidates[0]?.總收入) }}</div>
         <div>總收入</div>
-        <div>{{ Utils.formatComma(selectedCandidates[1]?.總收入) }}</div>
+        <div>{{ Utils.addComma(selectedCandidates[1]?.總收入) }}</div>
       </div>
       <div class="field">
-        <div>{{ Utils.formatComma(selectedCandidates[0]?.個人捐贈收入) }}</div>
+        <div>{{ Utils.addComma(selectedCandidates[0]?.個人捐贈收入) }}</div>
         <div>個人捐贈收入</div>
-        <div>{{ Utils.formatComma(selectedCandidates[1]?.個人捐贈收入) }}</div>
+        <div>{{ Utils.addComma(selectedCandidates[1]?.個人捐贈收入) }}</div>
       </div>
       <div class="field">
         <div>
-          {{ Utils.formatComma(selectedCandidates[0]?.營利事業捐贈收入) }}
+          {{ Utils.addComma(selectedCandidates[0]?.營利事業捐贈收入) }}
         </div>
         <div>營利事業捐贈收入</div>
         <div>
-          {{ Utils.formatComma(selectedCandidates[1]?.營利事業捐贈收入) }}
+          {{ Utils.addComma(selectedCandidates[1]?.營利事業捐贈收入) }}
         </div>
       </div>
       <div class="field">
-        <div>{{ Utils.formatComma(selectedCandidates[0]?.政黨捐贈收入) }}</div>
+        <div>{{ Utils.addComma(selectedCandidates[0]?.政黨捐贈收入) }}</div>
         <div>政黨捐贈收入</div>
-        <div>{{ Utils.formatComma(selectedCandidates[1]?.政黨捐贈收入) }}</div>
+        <div>{{ Utils.addComma(selectedCandidates[1]?.政黨捐贈收入) }}</div>
       </div>
       <div class="field">
         <div>
-          {{ Utils.formatComma(selectedCandidates[0]?.人民團體捐贈收入) }}
+          {{ Utils.addComma(selectedCandidates[0]?.人民團體捐贈收入) }}
         </div>
         <div>人民團體捐贈收入</div>
         <div>
-          {{ Utils.formatComma(selectedCandidates[1]?.人民團體捐贈收入) }}
+          {{ Utils.addComma(selectedCandidates[1]?.人民團體捐贈收入) }}
         </div>
       </div>
       <div class="field">
-        <div>{{ Utils.formatComma(selectedCandidates[0]?.匿名捐贈收入) }}</div>
+        <div>{{ Utils.addComma(selectedCandidates[0]?.匿名捐贈收入) }}</div>
         <div>匿名捐贈收入</div>
-        <div>{{ Utils.formatComma(selectedCandidates[1]?.匿名捐贈收入) }}</div>
+        <div>{{ Utils.addComma(selectedCandidates[1]?.匿名捐贈收入) }}</div>
       </div>
       <div class="field">
-        <div>{{ Utils.formatComma(selectedCandidates[0]?.其他收入) }}</div>
+        <div>{{ Utils.addComma(selectedCandidates[0]?.其他收入) }}</div>
         <div>其他收入</div>
-        <div>{{ Utils.formatComma(selectedCandidates[1]?.其他收入) }}</div>
+        <div>{{ Utils.addComma(selectedCandidates[1]?.其他收入) }}</div>
       </div>
     </section>
     <section class="charts">
