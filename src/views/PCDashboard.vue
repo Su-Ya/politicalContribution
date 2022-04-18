@@ -9,6 +9,8 @@ import { useCandidateStore } from "@/stores/candidate";
 import { ref } from "vue";
 import PKCandidates from "@/components/PKCandidates.vue";
 import ACandidate from "@/components/ACandidate.vue";
+import Utils from "@/utils/utils.js";
+
 const candidateStore = useCandidateStore();
 
 let modal = ref();
@@ -22,26 +24,26 @@ let modal = ref();
       <div class="modals">
         <button
           class="button outline-default"
-          :class="{ active: modal === 'pk' }"
-          @click="modal = 'pk'"
+          :class="{ active: modal === Utils.analyzeModals.pk }"
+          @click="modal = Utils.analyzeModals.pk"
         >
           PK
         </button>
         <button
           class="button outline-default"
-          :class="{ active: modal === 'single' }"
-          @click="modal = 'single'"
+          :class="{ active: modal === Utils.analyzeModals.single }"
+          @click="modal = Utils.analyzeModals.single"
         >
           個人資料
         </button>
       </div>
     </div>
     <PKCandidates
-      v-if="modal === 'pk'"
+      v-if="modal === Utils.analyzeModals.pk"
       :candidatesInDistricts="candidateStore.candidatesInDistricts"
     ></PKCandidates>
     <ACandidate
-      v-if="modal === 'single'"
+      v-if="modal === Utils.analyzeModals.single"
       :candidatesInDistricts="candidateStore.candidatesInDistricts"
     ></ACandidate>
   </div>
