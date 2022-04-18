@@ -5,8 +5,10 @@ export default {
 </script>
 
 <script setup>
-import { ref } from "vue";
+import { ref, shallowRef, computed } from "vue";
 import CandidatesInDistricts from "@/components/CandidatesInDistricts.vue";
+import PCChart from "@/components/PCChart.vue";
+
 const props = defineProps({
   candidatesInDistricts: {
     type: Array,
@@ -30,6 +32,46 @@ function formatComma(price) {
   if (price === undefined || price === null) return "";
   return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
+
+function deleteComma(strPrice) {
+  if (strPrice === undefined || strPrice === null) return "";
+  return strPrice.split(",").join("");
+}
+
+const barChart = shallowRef();
+const initBarChartConfig = computed(() => {
+  const canPK = selectedCandidates.value.length === 2;
+  if (canPK) {
+    const labels = [
+      "總收入",
+      "個人捐贈收入",
+      "營利事業捐贈收入",
+      "政黨捐贈收入",
+      "人民團體捐贈收入",
+      "匿名捐贈收入",
+      "其他收入",
+    ];
+    const color = ["#41B883", "#E46651"];
+    const datasets = selectedCandidates.value.map((candidate, index) => {
+      const data = labels.map((label) => Number(deleteComma(candidate[label])));
+      return {
+        label: candidate.姓名,
+        data: data,
+        backgroundColor: color[index],
+        borderColor: color[index],
+      };
+    });
+    return {
+      type: "bar",
+      data: {
+        labels: labels,
+        datasets: datasets,
+      },
+    };
+  } else {
+    return null;
+  }
+});
 </script>
 
 <template>
@@ -117,6 +159,14 @@ function formatComma(price) {
         <div>其他收入</div>
         <div>{{ formatComma(selectedCandidates[1]?.其他收入) }}</div>
       </div>
+    </section>
+    <section class="charts">
+      <PCChart
+        v-if="initBarChartConfig"
+        id="barChart"
+        :config="initBarChartConfig"
+        @updateChart="barChart = $event"
+      ></PCChart>
     </section>
   </section>
 </template>
