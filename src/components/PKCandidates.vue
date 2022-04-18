@@ -8,6 +8,7 @@ export default {
 import { ref, shallowRef, computed } from "vue";
 import CandidatesInDistricts from "@/components/CandidatesInDistricts.vue";
 import PCChart from "@/components/PCChart.vue";
+import Utils from "@/utils/utils.js";
 
 const props = defineProps({
   candidatesInDistricts: {
@@ -17,26 +18,6 @@ const props = defineProps({
 });
 
 let selectedCandidates = ref([]);
-
-function isElected(mark) {
-  switch (mark) {
-    case "*":
-      return true;
-    case "":
-    default:
-      return false;
-  }
-}
-
-function formatComma(price) {
-  if (price === undefined || price === null) return "";
-  return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
-
-function deleteComma(strPrice) {
-  if (strPrice === undefined || strPrice === null) return "";
-  return strPrice.split(",").join("");
-}
 
 const barChart = shallowRef();
 const initBarChartConfig = computed(() => {
@@ -53,7 +34,9 @@ const initBarChartConfig = computed(() => {
     ];
     const color = ["#41B883", "#E46651"];
     const datasets = selectedCandidates.value.map((candidate, index) => {
-      const data = labels.map((label) => Number(deleteComma(candidate[label])));
+      const data = labels.map((label) =>
+        Number(Utils.deleteComma(candidate[label]))
+      );
       return {
         label: candidate.姓名,
         data: data,
@@ -104,7 +87,7 @@ const initBarChartConfig = computed(() => {
             class="elected"
             src="https://upload.wikimedia.org/wikipedia/commons/c/c6/Vote1.svg"
             alt="elected icon"
-            v-if="isElected(selectedCandidates[0]?.當選註記)"
+            v-if="Utils.isElected(selectedCandidates[0]?.當選註記)"
           />
           <div v-else></div>
         </div>
@@ -114,7 +97,7 @@ const initBarChartConfig = computed(() => {
             class="elected"
             src="https://upload.wikimedia.org/wikipedia/commons/c/c6/Vote1.svg"
             alt="elected icon"
-            v-if="isElected(selectedCandidates[1]?.當選註記)"
+            v-if="Utils.isElected(selectedCandidates[1]?.當選註記)"
           />
           <div v-else></div>
         </div>
@@ -125,39 +108,47 @@ const initBarChartConfig = computed(() => {
         <div>{{ selectedCandidates[1]?.捐贈企業數 }}</div>
       </div>
       <div class="field">
-        <div>{{ formatComma(selectedCandidates[0]?.總收入) }}</div>
+        <div>{{ Utils.formatComma(selectedCandidates[0]?.總收入) }}</div>
         <div>總收入</div>
-        <div>{{ formatComma(selectedCandidates[1]?.總收入) }}</div>
+        <div>{{ Utils.formatComma(selectedCandidates[1]?.總收入) }}</div>
       </div>
       <div class="field">
-        <div>{{ formatComma(selectedCandidates[0]?.個人捐贈收入) }}</div>
+        <div>{{ Utils.formatComma(selectedCandidates[0]?.個人捐贈收入) }}</div>
         <div>個人捐贈收入</div>
-        <div>{{ formatComma(selectedCandidates[1]?.個人捐贈收入) }}</div>
+        <div>{{ Utils.formatComma(selectedCandidates[1]?.個人捐贈收入) }}</div>
       </div>
       <div class="field">
-        <div>{{ formatComma(selectedCandidates[0]?.營利事業捐贈收入) }}</div>
+        <div>
+          {{ Utils.formatComma(selectedCandidates[0]?.營利事業捐贈收入) }}
+        </div>
         <div>營利事業捐贈收入</div>
-        <div>{{ formatComma(selectedCandidates[1]?.營利事業捐贈收入) }}</div>
+        <div>
+          {{ Utils.formatComma(selectedCandidates[1]?.營利事業捐贈收入) }}
+        </div>
       </div>
       <div class="field">
-        <div>{{ formatComma(selectedCandidates[0]?.政黨捐贈收入) }}</div>
+        <div>{{ Utils.formatComma(selectedCandidates[0]?.政黨捐贈收入) }}</div>
         <div>政黨捐贈收入</div>
-        <div>{{ formatComma(selectedCandidates[1]?.政黨捐贈收入) }}</div>
+        <div>{{ Utils.formatComma(selectedCandidates[1]?.政黨捐贈收入) }}</div>
       </div>
       <div class="field">
-        <div>{{ formatComma(selectedCandidates[0]?.人民團體捐贈收入) }}</div>
+        <div>
+          {{ Utils.formatComma(selectedCandidates[0]?.人民團體捐贈收入) }}
+        </div>
         <div>人民團體捐贈收入</div>
-        <div>{{ formatComma(selectedCandidates[1]?.人民團體捐贈收入) }}</div>
+        <div>
+          {{ Utils.formatComma(selectedCandidates[1]?.人民團體捐贈收入) }}
+        </div>
       </div>
       <div class="field">
-        <div>{{ formatComma(selectedCandidates[0]?.匿名捐贈收入) }}</div>
+        <div>{{ Utils.formatComma(selectedCandidates[0]?.匿名捐贈收入) }}</div>
         <div>匿名捐贈收入</div>
-        <div>{{ formatComma(selectedCandidates[1]?.匿名捐贈收入) }}</div>
+        <div>{{ Utils.formatComma(selectedCandidates[1]?.匿名捐贈收入) }}</div>
       </div>
       <div class="field">
-        <div>{{ formatComma(selectedCandidates[0]?.其他收入) }}</div>
+        <div>{{ Utils.formatComma(selectedCandidates[0]?.其他收入) }}</div>
         <div>其他收入</div>
-        <div>{{ formatComma(selectedCandidates[1]?.其他收入) }}</div>
+        <div>{{ Utils.formatComma(selectedCandidates[1]?.其他收入) }}</div>
       </div>
     </section>
     <section class="charts">

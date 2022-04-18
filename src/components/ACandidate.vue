@@ -8,6 +8,7 @@ import { ref, shallowRef, computed } from "vue";
 import CandidatesInDistricts from "@/components/CandidatesInDistricts.vue";
 import PCChart from "@/components/PCChart.vue";
 import { useCandidateStore } from "@/stores/candidate";
+import Utils from "@/utils/utils.js";
 
 const props = defineProps({
   candidatesInDistricts: {
@@ -23,10 +24,6 @@ function updateSelected(value) {
   updateLineChart();
 }
 
-function deleteComma(strPrice) {
-  if (strPrice === undefined || strPrice === null) return "";
-  return strPrice.split(",").join("");
-}
 let pieChart = shallowRef();
 const initPieChartConfig = shallowRef({
   type: "pie",
@@ -60,8 +57,8 @@ function updatePieChart() {
     {
       backgroundColor: ["#41B883", "#E46651"],
       data: [
-        Number(deleteComma(selectedCandidate.value.總收入)),
-        Number(deleteComma(selectedCandidate.value.總支出)),
+        Number(Utils.deleteComma(selectedCandidate.value.總收入)),
+        Number(Utils.deleteComma(selectedCandidate.value.總支出)),
       ],
     },
   ];
@@ -118,7 +115,7 @@ const contributor = computed(() => {
   if (candidate.value.length > 0) {
     const companies = candidate.value.map((item) => item["捐贈者／支出對象"]);
     const prices = candidate.value.map((item) =>
-      Number(deleteComma(item["收入金額"]))
+      Number(Utils.deleteComma(item["收入金額"]))
     );
     console.log(companies);
     console.log(prices);
@@ -130,16 +127,6 @@ const contributor = computed(() => {
     return {};
   }
 });
-
-function isElected(mark) {
-  switch (mark) {
-    case "*":
-      return true;
-    case "":
-    default:
-      return false;
-  }
-}
 </script>
 
 <template>
@@ -167,7 +154,7 @@ function isElected(mark) {
             class="elected"
             src="https://upload.wikimedia.org/wikipedia/commons/c/c6/Vote1.svg"
             alt="elected icon"
-            v-if="isElected(selectedCandidate?.當選註記)"
+            v-if="Utils.isElected(selectedCandidate?.當選註記)"
           />
         </div>
       </div>
